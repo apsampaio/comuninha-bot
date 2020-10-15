@@ -23,39 +23,56 @@ def roll_dice(dice):
     return result, result_list
 
 
-def is_sum(user_input):
-    return user_input.find('+') >= 0
+def validate_sum(user_input):
+    plus_count = user_input.count('+')
+
+    new_list = user_input.split('+')
+    filtered = list(filter(lambda x: x != "", new_list))
+
+    if plus_count == 0:
+        return False
+    elif (plus_count != (len(filtered) - 1)):
+        raise Exception
+    else:
+        return True
 
 
 def is_dice(value):
     return value.find('d') >= 0
 
 
-
-
-
 @client.command()
 async def roll(ctx, *, user_input):    
 
-    user_input_string = user_input.replace(" ", "")
+    clean_string = user_input.replace(" ", "")
 
-    if(is_dice(user_input_string)):
-         result, result_list = roll_dice(user_input_string)
-         return await ctx.send(f"**{result}** ⇐ {result_list} {user_input}")
+    try:
+        if(validate_sum(clean_string)):
+            return await ctx.send(f":yum: É uma soma válida...")
+        else:
+            return await ctx.send(f":hot_face: Não é uma soma válida...")
 
-    return await ctx.send(f":hot_face: Não consegui entender seu comando...")
+    
+        if(is_dice(user_input_string)):
+            result, result_list = roll_dice(user_input_string)
+            return await ctx.send(f"**{result}** ⇐ {result_list} {user_input}")
 
-    values = user_input.split('+')
+        return await ctx.send(f":hot_face: Não consegui entender seu comando...")
 
-    for i in range(0, len(values)):
-        is_dice(values[i])
-    total_list.append((result, result_list))
-    total_result += result
+        values = user_input.split('+')
+
+        for i in range(0, len(values)):
+            is_dice(values[i])
+        total_list.append((result, result_list))
+        total_result += result
+
+        return await ctx.send(f"**{total_result}** ⇐ {total_list} {arg}")
+
+        result, result_list = roll_dice(arg)
+        return await ctx.send(f"**{result}** ⇐ {result_list} {arg}")
+    except:
+        return await ctx.send(f":x: Opa, deu erro...")
 
 
-    return await ctx.send(f"**{total_result}** ⇐ {total_list} {arg}")
-
-    result, result_list = roll_dice(arg)
-    return await ctx.send(f"**{result}** ⇐ {result_list} {arg}")
 
 client.run(bot_secret)
