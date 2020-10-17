@@ -26,19 +26,35 @@ def roll_dice(dice):
 def validate_sum(user_input):
     plus_count = user_input.count('+')
 
+    if plus_count == 0:
+        return False
+
     new_list = user_input.split('+')
     filtered = list(filter(lambda x: x != "", new_list))
 
-    if plus_count == 0:
-        return False
-    elif (plus_count != (len(filtered) - 1)):
+    if (plus_count != (len(filtered) - 1)):
         raise Exception
     else:
         return True
 
 
-def is_dice(value):
-    return value.find('d') >= 0
+def validate_dice(user_input):
+    d_count = user_input.count('d')
+
+    if (d_count == 0):
+        return False
+
+    new_list = user_input.split('d')
+    filtered = list(filter(lambda x: x != "", new_list))
+    
+    if(len(filtered) != 2):
+        return Exception
+
+    if(filtered[0].isnumeric() == False or filtered[1].isnumeric() == False):
+        raise Exception
+
+    return True
+
 
 
 @client.command()
@@ -50,12 +66,9 @@ async def roll(ctx, *, user_input):
         if(validate_sum(clean_string)):
             return await ctx.send(f":yum: É uma soma válida...")
         else:
-            return await ctx.send(f":hot_face: Não é uma soma válida...")
-
-    
-        if(is_dice(user_input_string)):
-            result, result_list = roll_dice(user_input_string)
-            return await ctx.send(f"**{result}** ⇐ {result_list} {user_input}")
+            if(validate_dice(clean_string)):
+                result, result_list = roll_dice(clean_string)
+                return await ctx.send(f"**{result}** ⇐ {result_list} {user_input}")
 
         return await ctx.send(f":hot_face: Não consegui entender seu comando...")
 
