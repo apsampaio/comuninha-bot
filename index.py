@@ -1,5 +1,8 @@
 import discord
+
 from dice_lib import dice
+from poll_lib import emoji_poll
+
 from env import bot_secret
 from discord.ext import commands
 
@@ -14,8 +17,30 @@ async def on_ready():
 async def roll(ctx, *, user_input):    
 
     result = dice(user_input)
-    return await ctx.send(result)
+    await ctx.message.add_reaction('👍')
+    return await ctx.send(f"{ctx.author.mention}\r{result}")
 
 
+@client.command()
+async def pollyn(ctx, *, title):
+
+    output = f"{ctx.author.mention} **iniciou uma votação:**\r\r**{title}**\r\r"
+    poll_message = await ctx.send(output)
+    await poll_message.add_reaction('👍')
+    await poll_message.add_reaction('👎')
+    await poll_message.add_reaction('🤷‍♂️')
+    return 
+
+@client.command()
+async def poll(ctx, *user_input):
+
+    output = f"{ctx.author.mention} **iniciou uma votação:**\r\r**{title}**\r\r"
+    for x in range(len(user_input)):
+        output += f"{emoji_poll[x]} - **{user_input[x]}**\r"
+
+    poll_message = await ctx.send(output)
+    for x in range(len(user_input)):
+        await poll_message.add_reaction(emoji_poll[x])
+    return 
 
 client.run(bot_secret)
