@@ -3,6 +3,8 @@ import discord
 from dice_lib import dice
 from poll_lib import emoji_poll
 
+from facebook_scraper import get_posts
+
 from env import bot_secret
 from discord.ext import commands
 
@@ -11,6 +13,16 @@ client = commands.Bot(command_prefix=".")
 @client.event
 async def on_ready():
     print(" ==== Bot Running ====")
+
+
+@client.command()
+async def steam(ctx):
+    try:
+        channel = client.get_channel(769224265697329164)
+        for post in get_posts('comusteambrasil', pages=1):
+            return await channel.send(post['text'])
+    except:
+        print("ops")
 
 
 @client.command()
@@ -30,6 +42,7 @@ async def pollyn(ctx, *, title):
     await poll_message.add_reaction('👎')
     await poll_message.add_reaction('🤷‍♂️')
     return 
+
 
 @client.command()
 async def poll(ctx, *user_input):
