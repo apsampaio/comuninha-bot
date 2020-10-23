@@ -17,10 +17,25 @@ async def on_ready():
 
 @client.command()
 async def steam(ctx):
+
+    channel = client.get_channel(769224265697329164)
+
+    reader = open("steampost.txt", "r")
+    list_string = reader.read()
+    reader.close()
+
+    writer = open("steampost.txt", "a")
+
+    post_list = list_string.split(" ")
+
     try:
-        channel = client.get_channel(769224265697329164)
-        for post in get_posts('comusteambrasil', pages=1):
-            return await channel.send(post['text'])
+        for post in get_posts('comusteambrasil', pages=2):
+            if str(post['post_id']) not in post_list:
+                await channel.send(f"**{post['time']}**\r{post['text']}")
+                writer.write(f" {post['post_id']}")
+        writer.close()
+        return
+
     except:
         print("ops")
 
