@@ -15,6 +15,21 @@ async def on_ready():
     print(" ==== Bot Running ====")
 
 
+@client.command(name="ajuda")
+async def ajuda(ctx):
+    output = f'''Olá {ctx.author.mention} 👋.
+
+    No momento tenho apenas os comandos:
+
+    **.roll** -  Rola um dado de RPG
+    **.pollyn** - Cria uma votação de Sim, Não e Talvez
+    **.steam** - Atualizo o canal de promoções da Steam Brasil
+
+    Se o corno do ADM trabalhar logo terei mais comandos.🥵'''
+    return await ctx.send(output)
+
+
+
 @client.command()
 async def steam(ctx):
 
@@ -60,15 +75,16 @@ async def pollyn(ctx, *, title):
 
 
 @client.command()
-async def poll(ctx, *user_input):
+async def join(ctx):
+    channel = ctx.author.voice.channel
+    await channel.connect()
+    return
 
-    output = f"{ctx.author.mention} **iniciou uma votação:**\r\r**{title}**\r\r"
-    for x in range(len(user_input)):
-        output += f"{emoji_poll[x]} - **{user_input[x]}**\r"
 
-    poll_message = await ctx.send(output)
-    for x in range(len(user_input)):
-        await poll_message.add_reaction(emoji_poll[x])
-    return 
+@client.command()
+async def leave(ctx):
+    channel = ctx.author.voice.channel
+    await channel.disconnect()
+    return  
 
 client.run(bot_secret)
