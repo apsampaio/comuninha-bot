@@ -24,10 +24,10 @@ async def ajuda(ctx):
     **.roll** -  Rola um dado de RPG
     **.pollyn** - Cria uma votação de Sim, Não e Talvez
     **.steam** - Atualizo o canal de promoções da Steam Brasil
+    **.sexo** - Manda sexo no canal sexo
 
     Se o corno do ADM trabalhar logo terei mais comandos.🥵'''
     return await ctx.send(output)
-
 
 
 @client.command()
@@ -75,6 +75,12 @@ async def pollyn(ctx, *, title):
 
 
 @client.command()
+async def sexo(ctx):
+    channel = client.get_channel(760526973897932880)
+    return await channel.send("sexo")
+    
+
+@client.command()
 async def join(ctx):
     channel = ctx.author.voice.channel
     await channel.connect()
@@ -86,5 +92,10 @@ async def leave(ctx):
     channel = ctx.author.voice.channel
     await channel.disconnect()
     return  
+
+
+@client.command()
+async def teste(ctx):
+    await ctx.send("Miranda da uma mamada", tts=True)
 
 client.run(bot_secret)
