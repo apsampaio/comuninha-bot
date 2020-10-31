@@ -2,6 +2,7 @@ import discord
 
 from dice_lib import dice
 from poll_lib import emoji_poll
+from neutre_lib import neutro
 
 from facebook_scraper import get_posts
 
@@ -95,7 +96,8 @@ async def leave(ctx):
 
 
 @client.command()
-async def teste(ctx):
-    await ctx.send("Miranda da uma mamada", tts=True)
+async def neutre(ctx, *, user_input):
+    result = neutro(user_input)
+    await ctx.send(result, tts=True)
 
 client.run(bot_secret)
