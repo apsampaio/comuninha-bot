@@ -88,10 +88,9 @@ async def neutre(ctx, *, user_input):
 
 @client.command()
 async def teste(ctx):
-    await ctx.send(f'''```md
-# Nome: /*   Um nome de teste    *
-# Vida: < 30/30 > 
-
+    await ctx.send(f'''```ml
+'Nome': John Cast 
+'Vida' : 30/30
 ```''')
 
 

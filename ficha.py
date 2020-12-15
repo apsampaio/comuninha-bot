@@ -1,3 +1,7 @@
+from tinydb import TinyDB, Query
+
+db = TinyDB('/db/db.json')
+
 class Ficha:
     def __init__(self, nome, HP):
         self.nome = nome
