@@ -1,7 +1,6 @@
 import discord
 
 from dice_lib import dice
-from poll_lib import emoji_poll
 from neutre_lib import neutro
 
 from facebook_scraper import get_posts
@@ -79,25 +78,21 @@ async def pollyn(ctx, *, title):
 async def sexo(ctx):
     channel = client.get_channel(760526973897932880)
     return await channel.send("sexo")
-    
-
-@client.command()
-async def join(ctx):
-    channel = ctx.author.voice.channel
-    await channel.connect()
-    return
-
-
-@client.command()
-async def leave(ctx):
-    channel = ctx.author.voice.channel
-    await channel.disconnect()
-    return  
 
 
 @client.command()
 async def neutre(ctx, *, user_input):
     result = neutro(user_input)
     await ctx.send(result, tts=True)
+
+
+@client.command()
+async def teste(ctx):
+    await ctx.send(f'''```md
+# Nome: /*   Um nome de teste    *
+# Vida: < 30/30 > 
+
+```''')
+
 
 client.run(bot_secret)
