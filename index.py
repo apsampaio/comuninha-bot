@@ -46,7 +46,9 @@ async def steam(ctx):
     try:
         for post in get_posts('comusteambrasil', pages=2):
             if str(post['post_id']) not in post_list:
-                await channel.send(f"**{post['time']}**\r{post['text']}")
+                await channel.send(f'''```md
+# {post['time']}
+{post['text']}```''')
                 writer.write(f" {post['post_id']}")
         writer.close()
         return
@@ -90,7 +92,7 @@ async def neutre(ctx, *, user_input):
 async def teste(ctx):
     await ctx.send(f'''```ml
 'Nome': John Cast 
-'Vida' : 30/30
+'Vida': 30/30
 ```''')
 
 
