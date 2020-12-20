@@ -4,6 +4,7 @@ load_dotenv()
 
 import discord
 import os
+import requests
 
 from discord.ext import commands
 
@@ -13,6 +14,7 @@ from facebook_scraper import get_posts
 client = commands.Bot(command_prefix=".")
 
 SECRET = os.getenv("SECRET")
+CAT_SECRET = os.getenv("CAT_SECRET")
 
 @client.event
 async def on_ready():
@@ -101,8 +103,16 @@ async def neutre(ctx, *, user_input):
 
 
 @client.command()
-async def cat(ctx): 
-    await ctx.send("😽")
-    
+async def cat(ctx):
+    querystring = {"x-api-key":CAT_SECRET}
+    payload = ""
+    try:
+        response = await request.request("GET", url, data=payload, params=querystring)
+
+    except:
+        await ctx.send("Aconteceu um erro... 🙀")
+        
+
+
 
 client.run(SECRET)
