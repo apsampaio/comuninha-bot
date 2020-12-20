@@ -68,16 +68,16 @@ async def steam(ctx):
     try:
         for post in get_posts('comusteambrasil', pages=2):
             if str(post['post_id']) not in post_list:
-                embed = discord.Embed(title=post['time'], description=post['text'], color=0xff5555)
-                message = await ctx.send(embed=embed)
+                embed = discord.Embed(title=str(post['time']), description=post['text'], color=0xff5555)
+                message = await channel.send(embed=embed)
                 await message.add_reaction('🥵')
                 await message.add_reaction('🥶')
                 writer.write(f" {post['post_id']}")
         writer.close()
         return
 
-    except:
-        print("ops")
+    except Exception as err:
+        print(err)
     ##  ##
 
 @client.command()
