@@ -128,7 +128,7 @@ async def neutre(ctx, *, user_input):
 @client.command()
 async def cat(ctx):
     ##  ##
-    await ctx.message.add_reaction('🐱‍👤')
+    await ctx.message.add_reaction('😸')
     url = "https://api.thecatapi.com/v1/images/search"
     querystring = {"x-api-key":CAT_SECRET}
     payload = ""
