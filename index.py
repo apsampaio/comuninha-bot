@@ -169,11 +169,23 @@ async def dog(ctx):
 
 
 @client.command()
-async def embed(ctx):
+async def doge(ctx):
     ##  ##
-    embed = discord.Embed(description="", color=0xff5555)
-    await ctx.send(embed=embed)
-    ##  ##
+    await ctx.message.add_reaction('🌭')
+    url = "http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=true"
+    payload = ""
+    try:
+        response = requests.request("GET", url, data=payload)
+        value = json.loads(response.text)
+        embed = discord.Embed(title="Doge 🐕", color=0xff5555)
+        embed.set_image(url=value[0])
+        message = await ctx.send(embed=embed)
+        await message.add_reaction('❤')
+        await message.add_reaction('🌭')
+    except Exception as err:
+        print(err)
+        await ctx.send("Aconteceu um erro... 😱")
+    ##  ##  
 
 
 client.run(SECRET)
