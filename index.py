@@ -52,6 +52,7 @@ async def ajuda(ctx):
     await message.add_reaction('🥶')
     ##  ##
 
+
 @client.command()
 async def steam(ctx):
     ##  ##
@@ -79,6 +80,7 @@ async def steam(ctx):
     except Exception as err:
         print(err)
     ##  ##
+
 
 @client.command()
 async def roll(ctx, *, user_input):    
