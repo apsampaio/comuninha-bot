@@ -16,6 +16,7 @@ client = commands.Bot(command_prefix=".")
 
 SECRET = os.getenv("SECRET")
 CAT_SECRET = os.getenv("CAT_SECRET")
+DOG_SECRET = os.getenv("DOG_SECRET")
 
 @client.event
 async def on_ready():
@@ -105,6 +106,7 @@ async def neutre(ctx, *, user_input):
 
 @client.command()
 async def cat(ctx):
+    ##  ##
     url = "https://api.thecatapi.com/v1/images/search"
     querystring = {"x-api-key":CAT_SECRET}
     payload = ""
@@ -112,12 +114,29 @@ async def cat(ctx):
     try:
         response = requests.request("GET", url, data=payload, params=querystring)
         value = json.loads(response.text)[0]
-        embed = discord.Embed(title="Meow 😺", color=0xff5555)
+        embed = discord.Embed(title="Kitty 😺", color=0xff5555)
         embed.set_image(url=value["url"])
         await ctx.send(embed=embed)
     except Exception as err:
         print(err)
         await ctx.send("Aconteceu um erro... 🙀")
+    ##  ##
+
+@client.command()
+async def dog(ctx):
+    url = "https://api.thedogapi.com/v1/images/search"
+    querystring = {"x-api-key":DOG_SECRET}
+    payload = ""
+
+    try:
+        response = requests.request("GET", url, data=payload, params=querystring)
+        value = json.loads(response.text)[0]
+        embed = discord.Embed(title="Doggo 🐶", color=0xff5555)
+        embed.set_image(url=value["url"])
+        await ctx.send(embed=embed)
+    except Exception as err:
+        print(err)
+        await ctx.send("Aconteceu um erro... 🌭")
         
 
 
