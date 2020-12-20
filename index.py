@@ -5,6 +5,7 @@ load_dotenv()
 import discord
 import os
 import requests
+import json
 
 from discord.ext import commands
 
@@ -104,12 +105,18 @@ async def neutre(ctx, *, user_input):
 
 @client.command()
 async def cat(ctx):
+    url = "https://api.thecatapi.com/v1/images/search"
     querystring = {"x-api-key":CAT_SECRET}
     payload = ""
-    try:
-        response = await request.request("GET", url, data=payload, params=querystring)
 
-    except:
+    try:
+        response = requests.request("GET", url, data=payload, params=querystring)
+        value = json.loads(response.text)[0]
+        embed = discord.Embed(title="Meow 😺", color=0xff5555)
+        embed.set_image(url=value["url"])
+        await ctx.send(embed=embed)
+    except Exception as err:
+        print(err)
         await ctx.send("Aconteceu um erro... 🙀")
         
 
