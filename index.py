@@ -1,14 +1,19 @@
+from dotenv import load_dotenv
+load_dotenv()
+
+
 import discord
+import os
+
+from discord.ext import commands
 
 from dice_lib import dice
 from neutre_lib import neutro
-
 from facebook_scraper import get_posts
 
-from env import bot_secret
-from discord.ext import commands
-
 client = commands.Bot(command_prefix=".")
+
+SECRET = os.getenv("SECRET")
 
 @client.event
 async def on_ready():
@@ -96,4 +101,4 @@ async def teste(ctx):
 ```''')
 
 
-client.run(bot_secret)
+client.run(SECRET)
