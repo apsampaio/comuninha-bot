@@ -8,7 +8,6 @@ import os
 from discord.ext import commands
 
 from dice_lib import dice
-from neutre_lib import neutro
 from facebook_scraper import get_posts
 
 client = commands.Bot(command_prefix=".")
@@ -22,6 +21,7 @@ async def on_ready():
 
 @client.command(name="ajuda")
 async def ajuda(ctx):
+    ##  ##
     output = f'''Olá {ctx.author.mention} 👋.
 
     No momento tenho apenas os comandos:
@@ -33,11 +33,11 @@ async def ajuda(ctx):
 
     Se o corno do ADM trabalhar logo terei mais comandos.🥵'''
     return await ctx.send(output)
-
+    ##  ##
 
 @client.command()
 async def steam(ctx):
-
+    ##  ##
     channel = client.get_channel(769224265697329164)
 
     reader = open("steampost.txt", "r")
@@ -60,7 +60,7 @@ async def steam(ctx):
 
     except:
         print("ops")
-
+    ##  ##
 
 @client.command()
 async def roll(ctx, *, user_input):    
@@ -72,33 +72,37 @@ async def roll(ctx, *, user_input):
 
 @client.command()
 async def pollyn(ctx, *, title):
-
+    ##  ##
     output = f"{ctx.author.mention} **iniciou uma votação:**\r\r**{title}**\r\r"
     poll_message = await ctx.send(output)
     await poll_message.add_reaction('👍')
     await poll_message.add_reaction('👎')
     await poll_message.add_reaction('🤷‍♂️')
     return 
+    ##  ##
 
 
 @client.command()
 async def sexo(ctx):
+    ##  ##
     channel = client.get_channel(760526973897932880)
     return await channel.send("sexo")
+    ##  ##
 
 
 @client.command()
 async def neutre(ctx, *, user_input):
-    result = neutro(user_input)
-    await ctx.send(result, tts=True)
+    ##  ##
+    string_neutre = user_input.replace("a", "e")
+    string_neutre = string_neutre.replace("o", "e")
+
+    await ctx.send(string_neutre)
+    ##  ##
 
 
 @client.command()
-async def teste(ctx):
-    await ctx.send(f'''```ml
-'Nome': John Cast 
-'Vida': 30/30
-```''')
-
+async def cat(ctx): 
+    await ctx.send("😽")
+    
 
 client.run(SECRET)
